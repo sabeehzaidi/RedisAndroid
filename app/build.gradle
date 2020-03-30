@@ -1,13 +1,21 @@
 apply plugin: 'com.android.application'
 
+
+ext.versionMajor = 2
+ext.versionMinor = 1
+ext.versionPatch = 0
+ext.versionClassifier = null
+ext.isSnapshot = false
+ext.minimumSdkVersion = 26
+
 android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.darvis.redisandroid"
-        minSdkVersion 26
+        minSdkVersion project.ext.minimumSdkVersion
         targetSdkVersion 29
-        versionCode 2
-        versionName "2.0"
+        versionCode generateVersionCode() // 190010203
+        versionName generateVersionName() // 2.1.0
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -17,6 +25,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+private Integer generateVersionCode() {
+    return ext.minimumSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier == null && ext.isSnapshot) {
+        ext.versionClassifier = "BETA"
+    }
+
+    if (ext.versionClassifier != null) {
+        versionName += "-" + ext.versionClassifier
+    }
+    return "v" + versionName;
 }
 
 dependencies {
