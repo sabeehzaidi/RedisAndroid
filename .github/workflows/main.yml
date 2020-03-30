@@ -42,7 +42,7 @@ jobs:
         track: internal
         userFraction: 0.33
         whatsNewDirectory: distribution/whatsnew
-        mappingFile: /app/build/outputs/mapping/release/mapping.txt
+        mappingFile: app/release/mapping/mapping.txt
         
         run: echo Publishing to Google Play Store $track Track
 
