@@ -41,7 +41,7 @@ jobs:
         releaseFile: app/release/app-release.apk
         track: internal
         userFraction: 0.33
-        whatsNewDirectory: /distribution/whatsnew
+        whatsNewDirectory: distribution/whatsnew
         mappingFile: /app/build/outputs/mapping/release/mapping.txt
         
         run: echo Publishing to Google Play Store $track Track
