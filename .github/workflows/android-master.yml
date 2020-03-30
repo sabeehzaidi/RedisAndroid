@@ -22,7 +22,7 @@ jobs:
 #       - name: Unit tests
 #         run: bash ./gradlew test --stacktrace
 
-  apk:
+  apkbuild:
     name: Generate APK
     runs-on: ubuntu-18.04
 
@@ -37,23 +37,25 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
-          name: app
-          path: ../app/build/outputs/apk/release/app-release.apk
+          name: apk
+          path: app-release.apk
   
   push:
     name: Publish to Playstore
+    needs: apkbuild
     runs-on: ubuntu-18.04
     
     steps:
       - name: Download APK from artifact
         uses: actions/download-artifact@v1
         with:
-          name: app
-      - uses: r0adkll/upload-google-play@v1
+          name: apk
+      - name: Push to playstore
+        uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.serviceAccount }}
           packageName: com.darvis.redisandroid
-          releaseFile: app/app-release.apk
+          releaseFile: apk/app-release.apk
           track: internal
           userFraction: 0.33
           whatsNewDirectory: distribution/whatsnew
