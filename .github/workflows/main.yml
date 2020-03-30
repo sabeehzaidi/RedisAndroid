@@ -36,7 +36,7 @@ jobs:
     - name: Upload Android Release to Play Store (internal track publishing is default)
       uses: r0adkll/upload-google-play@v1
       with:
-        serviceAccountJson: app/keys/api-5685426291824431811-410472-45111924eef5.json
+        serviceAccountJsonPlainText: ${{ secrets.serviceAccount }}
         packageName: com.darvis.redisandroid
         releaseFile: app/release/app-release.apk
         track: internal
