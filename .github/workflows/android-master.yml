@@ -55,7 +55,7 @@ jobs:
           with:
             serviceAccountJsonPlainText: ${{ secrets.serviceAccount }}
             packageName: com.darvis.redisandroid
-            releaseFile: app/release/app-release.apk
+            releaseFile: apk
             track: internal
             userFraction: 0.33
             whatsNewDirectory: distribution/whatsnew
