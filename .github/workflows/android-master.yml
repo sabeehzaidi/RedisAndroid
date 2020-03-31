@@ -44,6 +44,9 @@ jobs:
       name: Publish to Playstore
       needs: apkbuild
       runs-on: ubuntu-18.04
+      env:
+        whatsnew: distribution/whatsnew
+        mapping: app/release/mapping/mapping.txt
 
       steps:
         - name: Download APK from artifact
@@ -58,4 +61,5 @@ jobs:
             releaseFile: apk
             track: internal
             userFraction: 0.33
-            mappingFile: app/release/mapping/mapping.txt
+            whatsNewDirectory: $whatsnew
+            mappingFile: $mapping
