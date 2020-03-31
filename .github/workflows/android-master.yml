@@ -58,5 +58,5 @@ jobs:
             releaseFile: apk
             track: internal
             userFraction: 0.33
-            whatsNewDirectory: /distribution/whatsnew
+            whatsNewDirectory: ../distribution/whatsnew
             mappingFile: app/release/mapping/mapping.txt
