@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: apk
-          path: app-release.apk
+          path: ./app/release/app-release.apk
   
   push:
     name: Publish to Playstore
@@ -55,7 +55,7 @@ jobs:
         with:
           serviceAccountJsonPlainText: ${{ secrets.serviceAccount }}
           packageName: com.darvis.redisandroid
-          releaseFile: apk/app-release.apk
+          releaseFile: app/release/app-release.apk
           track: internal
           userFraction: 0.33
           whatsNewDirectory: distribution/whatsnew
