@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 
 ext.versionMajor = 2
-ext.versionMinor = 4
+ext.versionMinor = 5
 ext.versionPatch = 0
 ext.versionClassifier = null
 ext.isSnapshot = false
@@ -14,13 +14,35 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 29
-    defaultConfig {
-        applicationId "com.darvis.redisandroid"
-        minSdkVersion project.ext.minimumSdkVersion
-        targetSdkVersion 29
-        versionCode generateVersionCode() // 190010203
-        versionName generateVersionName() // 2.1.0
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    def versionPropsFile = rootProject.file("version.properties")
+
+    if (versionPropsFile.canRead()) {
+
+        gradle.taskGraph.whenReady { taskGraph ->
+            if (taskGraph.hasTask(assembleRelease)) {
+                def Properties versionProps = new Properties()
+
+                versionProps.load(new FileInputStream(versionPropsFile))
+                def name = versionProps['VERSION_NAME']
+                def code = versionProps['VERSION_CODE'].toInteger() + 1
+                versionProps['VERSION_CODE'] = code.toString()
+                versionProps.store(versionPropsFile.newWriter(), null)
+            }
+        }
+
+        defaultConfig {
+            applicationId "com.darvis.redisandroid"
+            minSdkVersion project.ext.minimumSdkVersion
+            targetSdkVersion 29
+            versionCode generateVersionCode() // 190010203
+            versionName generateVersionName() // 2.1.0
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
+    }
+    else
+    {
+        throw new GradleException("Could not read version.properties!")
     }
     signingConfigs {
         release {
