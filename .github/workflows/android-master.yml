@@ -2,8 +2,7 @@ name: Android Pull Request & Master CI
 
 on:
   push:
-    branches:
-      - 'master'
+    branches: [ android ]
 
 jobs:
 #   test:
