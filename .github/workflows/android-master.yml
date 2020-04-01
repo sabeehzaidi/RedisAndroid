@@ -29,15 +29,15 @@ jobs:
         with:
           java-version: 1.8
       - name: Build release APK
-        run: bash ./gradlew assembleRelease -PbuildDir="app/release/"
+        run: bash ./gradlew assembleRelease -PbuildDir="playstore"
         
       - name: Push to playstore
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.serviceAccount }}
           packageName: com.darvis.redisandroid
-          releaseFile: app/release/app-release.apk
+          releaseFile: app/playstore/outputs/apk/release/app-release.apk
           track: internal
           userFraction: 0.33
           whatsNewDirectory: distribution/whatsnew
-          mappingFile: app/release/mapping/mapping.txt
+          mappingFile: app/playstore/outputs/mapping/release/mapping.txt
